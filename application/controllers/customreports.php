@@ -1387,7 +1387,9 @@ class Customreports extends CI_Controller {
             $data['category_list'] = $new_category_list;
             $final_district_wise_array2 = array();
             foreach ($new_category_list as $cat_listv) {
-                $district_wise_catorized = $this->form_results_model->get_school_categorized_count_new($form_id, $_REQUEST['district'], $filter_attribute[0], $cat_listv, $from_date, $to_date);
+                $district_wise_catorized = $this->form_results_model->
+                get_school_categorized_count_new($form_id, $_REQUEST['district'], 
+                $filter_attribute[0], $cat_listv, $from_date, $to_date);
 
                 foreach ($district_wise_catorized as $key => $val) {
                     if (!array_key_exists($val['EMIS_Code'], $final_district_wise_array2)) {
