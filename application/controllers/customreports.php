@@ -966,8 +966,11 @@ class Customreports extends CI_Controller {
             foreach ($category_list as $category) {
                 $categorieslist = explode(',', $category);
                 foreach ($categorieslist as $catu) {
-                    $category_count = $this->form_results_model->getCountCatgoryBase($form_id, $catu, $filter_attribute, $from_date, $to_date, $selected_district = '');
-                    $category_list_count = array_merge($category_list_count, array($catu => $category_count));
+                    $category_count = $this->form_results_model->
+                        getCountCatgoryBase($form_id, $catu, $filter_attribute,
+                             $from_date, $to_date, $selected_district = '');
+                    $category_list_count = array_merge($category_list_count,
+                         array($catu => $category_count));
                     $totalRecords += $category_count;
                 }
             }
@@ -986,7 +989,8 @@ class Customreports extends CI_Controller {
             $data['category_list'] = $category_list;
             $data['total_records'] = $total_record;
             $data['category_list_count'] = $category_list_count;
-            $data['graph_text'] = 'Graph By Category <b> ' . str_replace('_', ' ', $filter_attribute[0]) . '</b>';
+            $data['graph_text'] = 'Graph By Category <b> ' . 
+                str_replace('_', ' ', $filter_attribute[0]) . '</b>';
             $data['pageTitle'] = " Graph-View";
             $data['graph_type'] = 'Category';
             $data['app_id'] = $selected_form['app_id'];
@@ -1023,17 +1027,23 @@ class Customreports extends CI_Controller {
         $data['app_name'] = $selected_app['name'];
 
         if ($graph_type == 'user') {
-            $users_lists = $this->app_users_model->get_app_users_app_based($selected_form['app_id'], $login_district);
+            $users_lists = $this->app_users_model->
+                get_app_users_app_based($selected_form['app_id'], 
+                    $login_district);
             $users_lists_array = array();
             foreach ($users_lists as $users_name) {
 
-                $users_lists_array[] = array('imei_no' => $users_name['imei_no'], 'user_name' => $users_name['user_name']);
+                $users_lists_array[] = array('imei_no' => 
+                    $users_name['imei_no'], 'user_name' => 
+                        $users_name['user_name']);
             }
             $users_wise_counter = array();
             $totalRecords = 0;
             foreach ($users_lists_array as $users) {
-                $users_count = $this->form_results_model->getCountUserBased($slug, $users['imei_no']);
-                $users_wise_counter = array_merge($users_wise_counter, array($users['user_name'] => $users_count));
+                $users_count = $this->form_results_model->
+                    getCountUserBased($slug, $users['imei_no']);
+                $users_wise_counter = array_merge($users_wise_counter, 
+                    array($users['user_name'] => $users_count));
                 $totalRecords += $users_count;
             }
             $users_wise_counter[] = arsort($users_wise_counter);
@@ -1053,8 +1063,10 @@ class Customreports extends CI_Controller {
             $totalRecords = 0;
             $category_list_count = array();
             foreach ($category_list as $category) {
-                $category_count = $this->form_results_model->getCountCatgoryBased($slug, $category, $filter_attribute);
-                $category_list_count = array_merge($category_list_count, array($category => $category_count));
+                $category_count = $this->form_results_model->
+                    getCountCatgoryBased($slug, $category, $filter_attribute);
+                $category_list_count = array_merge($category_list_count, 
+                    array($category => $category_count));
                 $totalRecords += $category_count;
             }
             $category_list_count[] = arsort($category_list_count);
