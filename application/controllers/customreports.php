@@ -920,16 +920,26 @@ class Customreports extends CI_Controller {
                 }
 
                 if (!key_exists($myrep['Disbursement_Center'], $final_disb_array[$myrep['District']][$myrep['Tehsil']])) {
-                    $final_disb_array[$myrep['District']][$myrep['Tehsil']][$myrep['Disbursement_Center']] = array();
+                    $final_disb_array[$myrep['District']]
+                        [$myrep['Tehsil']][$myrep['Disbursement_Center']] 
+                            = array();
                 }
 
                 $available_fac = explode(',', $myrep['Facilities_Available']);
                 foreach ($available_fac as $avail_value) {
-                    if (!key_exists('facilities', $final_disb_array[$myrep['District']][$myrep['Tehsil']][$myrep['Disbursement_Center']])) {
-                        $final_disb_array[$myrep['District']][$myrep['Tehsil']][$myrep['Disbursement_Center']]['facilities'] = array();
+                    if (!key_exists('facilities', 
+                        $final_disb_array[$myrep['District']][$myrep['Tehsil']]
+                            [$myrep['Disbursement_Center']])) {
+                        $final_disb_array[$myrep['District']]
+                            [$myrep['Tehsil']][$myrep['Disbursement_Center']]
+                                ['facilities'] = array();
                     }
-                    if (!in_array($avail_value, $final_disb_array[$myrep['District']][$myrep['Tehsil']][$myrep['Disbursement_Center']]['facilities'])) {
-                        array_push($final_disb_array[$myrep['District']][$myrep['Tehsil']][$myrep['Disbursement_Center']]['facilities'], $avail_value);
+                    if (!in_array($avail_value, 
+                        $final_disb_array[$myrep['District']][$myrep['Tehsil']]
+                            [$myrep['Disbursement_Center']]['facilities'])) {
+                        array_push($final_disb_array[$myrep['District']]
+                            [$myrep['Tehsil']][$myrep['Disbursement_Center']]
+                                ['facilities'], $avail_value);
                     }
                 }
             }
@@ -950,14 +960,23 @@ class Customreports extends CI_Controller {
                 $counter = 0;
                 foreach ($category_list as $category) {
                     $counter ++;
-                    $district_wise_catorized = $this->form_results_model->get_district_categorized_count($form_id, $district['district_name'], $filter_attribute[0], $category, $from_date, $to_date);
+                    $district_wise_catorized = $this->form_results_model->
+                        get_district_categorized_count($form_id, 
+                            $district['district_name'], $filter_attribute[0], 
+                                $category, $from_date, $to_date);
                     $total += $district_wise_catorized;
-                    $final_district_wise_array = array_merge($final_district_wise_array, array('district' => $district['district_name'], $category => $district_wise_catorized));
+                    $final_district_wise_array = 
+                        array_merge($final_district_wise_array, 
+                            array('district' => $district['district_name'], 
+                                $category => $district_wise_catorized));
                     if ($counter == count($category_list)) {
-                        $final_district_wise_array = array_merge($final_district_wise_array, array('total' => $total));
+                        $final_district_wise_array = 
+                            array_merge($final_district_wise_array, 
+                                array('total' => $total));
                     }
                 }
-                $final_district_wise_array2[$district['district_name']] = $final_district_wise_array;
+                $final_district_wise_array2[$district['district_name']] 
+                    = $final_district_wise_array;
             }
             $data['district_categorized'] = $final_district_wise_array2;
 
